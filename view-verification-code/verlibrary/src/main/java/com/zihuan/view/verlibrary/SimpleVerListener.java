@@ -12,8 +12,12 @@ public class SimpleVerListener implements VerificationListener {
     }
 
     @Override
-    public void onCountdowning(int number) {
+    public void onCountdown(int number) {
 
     }
 
+    @Override
+    public void onStartError() {
+
+    }
 }

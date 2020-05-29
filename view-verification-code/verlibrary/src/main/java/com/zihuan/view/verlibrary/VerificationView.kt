@@ -48,15 +48,37 @@ class VerificationView : TextView {
      * 倒计时监听
      */
     var callback: VerificationListener? = null
+    /**
+     * 访问条件
+     */
+    private var conditions = false
+
+    fun conditions(action: () -> Boolean):VerificationView {
+        conditions = action()
+        return this
+    }
 
     private var innerMaxNumber = maxNumber
+
+    var plus: (Int) -> Boolean = { x -> true } //无返回值时 用Unit
 
     private fun initView() {
         text = defText
         gravity = Gravity.CENTER
         setOnClickListener {
-            mHandler.sendEmptyMessage(CDSTART)
+            if (conditions) {
+                mHandler.sendEmptyMessage(CDSTART)
+            } else {
+                callback?.apply {
+                    onStartError()
+                }
+            }
         }
+    }
+
+
+    private fun verConditions(action: () -> Boolean): Boolean {
+        return action()
     }
 
     //开始
@@ -88,7 +110,7 @@ class VerificationView : TextView {
             text = "${innerMaxNumber}s"
             mHandler.sendEmptyMessage(COUNTDOWNING)
             callback?.let {
-                it.onCountdowning(innerMaxNumber)
+                it.onCountdown(innerMaxNumber)
             }
             if (isClickable) isClickable = false
         } else {

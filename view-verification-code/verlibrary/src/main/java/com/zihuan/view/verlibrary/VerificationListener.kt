@@ -7,6 +7,11 @@ interface VerificationListener {
     //倒计时结束
     fun onCDEnd()
 
-    //倒计时中
-    fun onCountdowning(number: Int)
+    //倒计时
+    fun onCountdown(number: Int)
+
+    //启动失败
+    fun onStartError(){
+
+    }
 }
