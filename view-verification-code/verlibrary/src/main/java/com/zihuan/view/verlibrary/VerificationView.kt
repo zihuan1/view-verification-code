@@ -28,7 +28,7 @@ class VerificationView : TextView {
     /**
      * 最大值
      */
-    var maxNumber = 59
+    var maxNumber = 60
 
     /**
      * 倒计时延迟阈值
@@ -82,10 +82,10 @@ class VerificationView : TextView {
         }
     }
 
-    private val mRunnable:Runnable = Runnable {
+    private val mRunnable: Runnable = Runnable {
         if (innerMaxNumber > 0) {
-            text = "${innerMaxNumber}s"
             innerMaxNumber--
+            text = "${innerMaxNumber}s"
             mHandler.sendEmptyMessage(COUNTDOWNING)
             callback?.let {
                 it.onCountdowning(innerMaxNumber)
