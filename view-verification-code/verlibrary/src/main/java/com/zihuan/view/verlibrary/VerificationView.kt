@@ -48,13 +48,15 @@ class VerificationView : TextView {
      * 倒计时监听
      */
     var callback: VerificationListener? = null
+
     /**
      * 访问条件
      */
     private var conditions = false
+    private lateinit var con: () -> Boolean
 
-    fun conditions(action: () -> Boolean):VerificationView {
-        conditions = action()
+    fun conditions(action: () -> Boolean): VerificationView {
+        con = action
         return this
     }
 
@@ -66,7 +68,7 @@ class VerificationView : TextView {
         text = defText
         gravity = Gravity.CENTER
         setOnClickListener {
-            if (conditions) {
+            if (con()) {
                 mHandler.sendEmptyMessage(CDSTART)
             } else {
                 callback?.apply {

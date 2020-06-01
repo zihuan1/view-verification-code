@@ -12,20 +12,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tvTest.conditions { true }.callback = object : SimpleVerListener() {
-            override fun onCDStart() {
-                Log.e("倒计时中", "开始")
-            }
+        tvTest.conditions { etCode.text.toString().isNotEmpty() }.callback =
+            object : SimpleVerListener() {
+                override fun onCDStart() {
+                    Log.e("倒计时中", "开始")
+                }
 
-            override fun onCountdown(number: Int) {
-                Log.e("倒计时中", "$number")
-            }
+                override fun onCountdown(number: Int) {
+                    Log.e("倒计时中", "$number")
+                }
 
-            override fun onStartError() {
-                Log.e("倒计时中", "条件错误")
+                override fun onStartError() {
+                    Log.e("倒计时中", "条件错误")
 
+                }
             }
-        }
     }
 
 
