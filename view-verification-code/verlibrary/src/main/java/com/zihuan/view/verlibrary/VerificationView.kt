@@ -52,23 +52,21 @@ class VerificationView : TextView {
     /**
      * 访问条件
      */
-    private var conditions = false
-    private lateinit var con: () -> Boolean
+    private lateinit var conditions: () -> Boolean
 
     fun conditions(action: () -> Boolean): VerificationView {
-        con = action
+        conditions = action
         return this
     }
 
     private var innerMaxNumber = maxNumber
 
-    var plus: (Int) -> Boolean = { x -> true } //无返回值时 用Unit
 
     private fun initView() {
         text = defText
         gravity = Gravity.CENTER
         setOnClickListener {
-            if (con()) {
+            if (conditions()) {
                 mHandler.sendEmptyMessage(CDSTART)
             } else {
                 callback?.apply {
