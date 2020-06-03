@@ -117,7 +117,7 @@ class VerificationView : TextView {
             innerMaxNumber = maxNumber
             text = defText
             callback?.let {
-                it.onCDStart()
+                it.onCDEnd()
             }
             isClickable = true
         }
